@@ -1,0 +1,180 @@
+<% include newApp_header %>
+<% let complainResult = locals.pageSignalResult %>
+
+
+            <!-- Table Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h3 class="mb-4">유저 정보</h3>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">불편접수 총합</th>
+                                        <th scope="col">연령대</th>
+                                        <th scope="col">성별</th>
+                                        <th scope="col">직업</th>
+                                        <th scope="col">가입날짜</th>    
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for (let index in complainResult) { %>
+                                    <tr>
+                                        <td><%= complainResult[index].kakao_id %></td>
+                                        <td><%= complainResult[index].cnt %></td>  
+                                        <td><%= complainResult[index].age %></td>
+                                        <td><%= complainResult[index].sex %></td>
+                                        <td><%= complainResult[index].job %></td>
+                                        <td><%= moment(complainResult[index].join_date).format('YYYY.MM.DD HH:mm:ss') %></td>
+                                    </tr>
+                                    <% } %> 
+                                </tbody>
+                            </table>
+                            <%
+                            let paging = locals.paging
+                            let curSet = paging.curSet
+                            let endPage = paging.endPage
+                            let startPage = paging.startPage
+                            let totalSet = paging.totalSet
+                            let totalPage = paging.totalPage
+                            let page_list_size = paging.page_list_size
+                            let page_size = paging.page_size
+                            let curPage = paging.curPage
+                            let pageType = locals.pageType
+                          %>
+                          <ul class="pagination">
+                            <li>
+                                <% if (curPage <= 1) { %>
+                                    <a class="page-link" href="#">이전 </a>
+                                <% } else { %>
+                                  <% if(pageType == 'normal') { %> 
+                                    <a class="page-link" href="/newApp/contents?page=<%= (curPage -1 ) %>"> 이전 </a>
+                                  <% } else if(pageType == 'keywords') {
+                                    let keywords = locals.keywords;
+                                  %>
+                                  <a class="page-link" href="/newApp/contents?page=<%= (curPage -1 ) %>&keywords=<%=keywords%>">이전 </a>
+                                  <% } else if(pageType == 'specific') {
+                                  let age = locals.age;
+                                  let sex = locals.sex;
+                                  let job = locals.job;
+                                  let startDate = locals.startDate;
+                                  let endDate = locals.endDate;
+                                  %>
+                                  <a class="page-link" href="/newApp/contents?page=<%= (curPage -1 ) %>&age=<%=age%>&sex=<%=sex%>&job=<%=job%>&startDate=<%=startDate%>&endDate=<%=endDate%>">이전 </a>
+                                  <% } else { 
+                                      let userId = locals.userId;
+                                    %>
+                                    <a class="page-link" href="/newApp/userSearch?page=<%= (curPage -1 ) %>&userId=<%=userId%>">이전 </a>
+                                  <% } %>
+                                <% } %>
+                            </li>
+                            <% for (let i = startPage; i <= endPage; i++) { 
+                                if (i > totalPage) {
+                                    break;
+                                } 
+                            %>
+                                <% if (i == curPage) { %>
+                                    <li class="active" >
+                                <% }  else {%>
+                                    <li>
+                                <% } %>
+                                <% if(pageType == 'normal') { %> 
+                                  <a href="/newApp/contents?page=<%= i %>"><%= i %></a>                      
+                                  <% } else if(pageType == 'keywords') {
+                                    let keywords = locals.keywords;
+                                    %>
+                                    <a href="/newApp/contents?page=<%= i %>&keywords=<%=keywords%>"><%= i %></a>
+                                  <% } else if(pageType == 'specific') {
+                                    let age = locals.age;
+                                    let sex = locals.sex;
+                                    let job = locals.job;
+                                    let startDate = locals.startDate;
+                                    let endDate = locals.endDate;
+                                  %>
+                                  <a href="/newApp/contents?page=<%= i %>&age=<%=age%>&sex=<%=sex%>&job=<%=job%>&startDate=<%=startDate%>&endDate=<%=endDate%>"> <%= i %></a>
+                                  <% } else {  
+                                    let userId = locals.userId;
+                                    %>
+                                    <a href="/newApp/userSearch?page=<%= i %>&userId=<%=userId%>"><%= i %></a>
+                                  <% } %>
+                                    </li>
+                            <% } %>
+                            <li>
+                                <% if (Number(curPage) + 1 <= totalPage) { %>
+                                  <% if(pageType == 'normal') { %> 
+                                    <a href="/newApp/contents?page=<%= (Number(curPage) + 1 ) %>">다음</a>
+                                  <% } else if(pageType == 'keywords') {
+                                    let keywords = locals.keywords;
+                                  %>
+                                  <a href="/newApp/contents?page=<%= (Number(curPage) + 1 ) %>&keywords=<%=keywords%>">다음</a>
+                                  <% } else if(pageType == 'specific') {
+                                    let age = locals.age;
+                                    let sex = locals.sex;
+                                    let job = locals.job;
+                                    let startDate = locals.startDate;
+                                    let endDate = locals.endDate;
+                                  %>
+                                  <a href="/newApp/contents?page=<%= (Number(curPage) + 1 ) %>&age=<%=age%>&sex=<%=sex%>&job=<%=job%>&startDate=<%=startDate%>&endDate=<%=endDate%>"> 다음</a>
+                                    <% } else {   
+                                    let userId = locals.userId;
+                                    %>
+                                    <a href="/newApp/userSearch?page=<%= (Number(curPage) + 1 ) %>&userId=<%=userId%>">다음</a>
+                                  <% } %>
+                                <% } else { %>
+                                    <a class="page-link" href="#">다음</a>
+                                <% } %>
+                            </li>
+                          </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Table End -->
+
+
+            <% include newApp_footer %>
+        </div>
+        <!-- Content End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/chart/chart.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+<style>
+    .pagination {
+      background-color: #191C24;
+    }
+    .pagination a{
+      background-color: #191C24;
+      border-color: #191C24;
+      
+    }
+    .pagination li {
+      float: left;
+      padding: 8px 16px;
+      text-decoration: none;
+    }
+    .pagination li.active {
+      background-color: black;
+    }
+    
+    </style>
+
+</html>

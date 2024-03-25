@@ -1,0 +1,78 @@
+<% include header %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+<!-- Begin Page Content -->
+  <div class="container-fluid">
+
+    <!-- Page Heading --> 
+    <h1></h1><br><br>
+    <h1 class="h3 mb-2 text-gray-800">누적 취미 추천수 : 159건</h1>
+    <h1 class="h3 mb-2 text-gray-800">누적 유저수 : 55명</h1>
+    <h1 class="h3 mb-2 text-gray-800">누적 입점신청 기업수: 21곳</h1>
+   <!-- Page Heading -->
+<br><br>
+   <div style="width: 25%; float: left;">
+      <canvas id="pie-chart-age" width="50" height="50"></canvas>
+  </div>
+  <div style="width: 25%; float: left;">
+      <canvas id="pie-chart-sex" width="50" height="50"></canvas>
+  </div>
+  <div style="width: 25%; float: left;">
+      <canvas id="pie-chart-job" width="50" height="50"></canvas>
+  </div> <br><br>
+  <div style="width: 50%; height:25%;">
+    <canvas id="bar-chart-horizontal" width="600" height="250"></canvas>
+  </div>
+
+  <%
+  let ageCnt = locals.ageCnt;
+  let sexCnt = locals.sexCnt;
+  let jobCnt = locals.jobCnt;
+  let complainCnt = locals.complainCnt;
+  let profileCnt = locals.profileCnt;
+%>
+
+  <script>
+     let ageCnt = <%- JSON.stringify(ageCnt) %>;
+     let sexCnt = <%- JSON.stringify(sexCnt) %>;
+     let jobCnt = <%- JSON.stringify(jobCnt) %>;
+     let profileCnt = <%= profileCnt %>;
+     let complainCnt = <%= complainCnt %>;
+      
+
+    new Chart(document.getElementById("bar-chart-horizontal"), {
+    type: 'horizontalBar',
+    data: {
+      labels: ["📝 취미추천", "👩🏻회원가입", "입주신청"],
+      datasets: [
+        {
+          label: "Population (millions)",
+          backgroundColor: ["#3e95cd", "#8e5ea2", "#8e5ea2"],
+          data: [350, 120, 35]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: '오늘의 이벤트 발생 수'
+      }
+    }
+});
+
+    </script>
+  <!-- Bootstrap core JavaScript-->
+  <script src="/resource/vendor/jquery/jquery.min.js"></script>
+  <script src="/resource/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="/resource/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="/resource/js/sb-admin-2.min.js"></script>
+
+
+  <!-- Page level custom scripts -->
+  <script src="/resource/js/demo/chart-area-demo.js"></script>
+  <script src="/resource/js/demo/chart-pie-demo.js"></script>

@@ -1,0 +1,137 @@
+<% include header %>
+
+<script>
+  function searchKaKaoId () { 
+    let data = $("#refCode").val();
+    $.ajax({
+      type: "POST",
+      url: "/function/serachKakaoId",
+      dataType: 'json',
+      data: {data: data},
+      success: function(data) {
+        let userId = JSON.stringify(data['userId']['kakao_id']);
+        userId = userId.replace(/\"/gi, "");
+        alert('카카오ID: ' + userId);
+        $("#find_kakao_id").val(userId);
+      }
+    });
+  }
+</script>
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <h1></h1>
+  <h1 class="h3 mb-2 text-gray-800">사용자 및 입점 기업 관리 페이지</h1>
+  <p class="mb-4"></p>
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">블랙컨슈머 차단</h6>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <form class="user" action="/function/minusPoint" method="POST">
+              <p>  </p>
+              <input type="text" class="form-control form-control-user" id="kakaoId" name="kakaoId" placeholder="블록처리할 유저아이디 입력">
+              <input type="text" class="form-control form-control-user" id="pointVal" name="pointVal" placeholder="사용자 / 입점기업 입력">
+              <input type="text" class="form-control form-control-user" id="pointFlag" name="pointFlag" value="both" hidden>
+
+              </div>
+              <button type="submit" class="btn btn-primary">
+                블록처리하기
+              </button>
+            </form>
+            </div>
+            <br/>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">입점 기업 승인</h6>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <form class="user" action="/function/minusPoint" method="POST">
+                      <p>  </p>
+                      <input type="text" class="form-control form-control-user" id="kakaoId" name="kakaoId" placeholder="입점신청한 기업아이디 입력">
+                      <input type="text" class="form-control form-control-user" id="pointVal" name="pointVal" placeholder="입점신청 기업 카테고리 입력">
+                      <input type="text" class="form-control form-control-user" id="pointFlag" name="pointFlag" value="only" hidden>
+        
+                      </div>
+                      <button type="submit" class="btn btn-primary">
+                        입점 승인하기
+                      </button>
+                    </form>
+                    </div>
+<br/>
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">특정 사용자의 포인트 추가</h6>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <form class="user" action="/function/plusPoint" method="POST">
+              <p>  </p>
+              <input type="text" class="form-control form-control-user" id="kakaoId" name="kakaoId" placeholder="카카오아이디 입력">
+              <input type="text" class="form-control form-control-user" id="pointVal" name="pointVal" placeholder="추가할 포인트 입력">
+
+              </div>
+              <button type="submit" class="btn btn-primary">
+                포인트 추가하기
+              </button>
+            </form>
+            </div>
+          </div>
+      </div>
+
+      <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">추천인코드로 카카오 id 검색</h6>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <form class="user">
+                <p>  </p>
+                <input type="text" class="form-control form-control-user" id="refCode" name="refCode" placeholder="추천인코드 입력">
+                  </div>
+                <button type="submit" class="btn btn-primary" onclick="searchKaKaoId()">
+                  ID 찾기
+                </button>
+              </form>
+              </div>
+            </div>
+        </div>
+          </div>
+      </div>
+
+
+    </div>
+  </div>
+
+</div>
+
+
+
+</div>
+
+  <!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Bootstrap core JavaScript-->
+<script src="/resource/vendor/jquery/jquery.min.js"></script>
+<script src="/resource/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/resource/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/resource/js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="/vendor/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="/resource/js/demo/chart-area-demo.js"></script>
+<script src="/resource/js/demo/chart-pie-demo.js"></script>
+<% include footer %>

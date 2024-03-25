@@ -1,0 +1,12 @@
+{
+  "apps": [
+    {
+      "name": "complainer_api",
+      "script": "./build/app/app.js",
+      "output": "/dev/null",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}

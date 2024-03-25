@@ -1,0 +1,81 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "description": "Simple web application based on Koa",
+  "main": "app.js",
+  "scripts": {
+    "build": "gulp clean && tsc && gulp prepare",
+    "dist_prod": "gulp clean && tsc && gulp prepare && gulp dist --target production",
+    "dist_dev3": "gulp clean && tsc && gulp prepare && gulp dist --target dev3",
+    "clean": "gulp clean",
+    "cleanAll": "gulp clean && gulp clean_dist",
+    "test": "gulp clean && tsc && gulp prepare && node_modules/.bin/mocha build/tests/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "harry",
+  "license": "ISC",
+  "dependencies": {
+    "@slack/client": "^5.0.2",
+    "@slack/webhook": "^6.1.0",
+    "config": "^1.31.0",
+    "cron": "^2.1.0",
+    "cron-parser": "^2.4.0",
+    "install": "^0.13.0",
+    "koa": "^2.7.0",
+    "koa-body": "^4.0.7",
+    "koa-ejs": "^4.2.0",
+    "koa-ip-filter": "^3.0.0",
+    "koa-mount": "^4.0.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa2-cors": "^2.0.6",
+    "lazy.js": "^0.5.1",
+    "moment": "2.18.1",
+    "mysql": "^2.13.0",
+    "natives": "1.1.6",
+    "node-code-generator": "^1.0.3",
+    "node-cron": "^3.0.2",
+    "node-schedule": "^2.1.0",
+    "pm2": "^5.1.2",
+    "redis": "^2.8.0",
+    "request": "^2.72.0",
+    "slack-node": "^0.1.8",
+    "sleep": "^6.1.0",
+    "ts-enum-util": "^3.1.0",
+    "vinyl-sourcemaps-apply": "^0.2.1",
+    "winston": "^3.2.1",
+    "winston-daily-rotate-file": "^3.9.0"
+  },
+  "engines": {
+    "node": "~9.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.40",
+    "@babel/preset-env": "^7.19.3",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "7.0.0",
+    "@koa/cors": "^2.2.3",
+    "@types/config": "0.0.34",
+    "@types/koa": "^2.0.48",
+    "@types/mocha": "^5.2.5",
+    "@types/mysql": "^2.15.5",
+    "@types/pump": "^1.0.1",
+    "del": "^3.0.0",
+    "gulp": "^4.0.0",
+    "gulp-javascript-obfuscator": "^1.1.4",
+    "gulp-rename": "^1.4.0",
+    "gulp-util": "3.0.8",
+    "merge-stream": "^1.0.1",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.3",
+    "pump": "^3.0.0",
+    "typescript": "^5.1.6"
+  },
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
+  }
+}

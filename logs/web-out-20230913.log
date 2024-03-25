@@ -1,0 +1,2 @@
+[23:59:56.001] INFO job 실행
+[23:59:56.061] INFO query: SELECT * FROM complainer_log WHERE log_date = '2023-09-13'

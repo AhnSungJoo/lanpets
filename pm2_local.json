@@ -1,0 +1,19 @@
+{
+  "apps": [
+    {
+      "name": "webserver",
+      "script": "./build/app/app.js",
+      "env": {
+        "NODE_ENV": "local"
+      },
+      "db": {
+        "real-mysql": {
+          "host": "127.0.0.1",
+          "user": "root",
+          "password": "potensj11",
+          "db": "complainer"
+        }
+      }
+    }
+  ]
+}

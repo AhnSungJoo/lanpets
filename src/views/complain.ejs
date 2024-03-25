@@ -1,0 +1,249 @@
+<% include header %>
+<style>
+.pagination {
+  background-color: white;
+}
+.pagination li {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+.pagination li.active {
+  background-color: #72b8b1;
+  color: white;
+}
+
+</style>
+<script>
+</script>
+<% let complainResult = locals.pageSignalResult %>
+  <div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1></h1>
+    <h1 class="h3 mb-2 text-gray-800"> 불편접수 내역 확인</h1>
+    <p class="mb-4">불편접수내역을 확인할 수 있습니다.</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+          <form class="user" action="/overview/complainerSearch" method="GET">
+            <p>불편러의 kakao_id를 입력하세요</p>
+            <input type="text" class="form-control form-control-user" id="userId" name="userId" placeholder="Enter Complianer Name...">
+            <button type="submit" class="btn btn-primary">
+              검색하기
+            </button>
+          </form>
+      </div>
+      <div class="card-header py-3">
+          <form class="user" action="/overview/contextSearch" method="GET">
+            <p>불편 내용 검색어를 입력하세요.</p>
+            <input type="text" class="form-control form-control-user" id="keywords" name="keywords" placeholder="검색어를 입력하세요.">
+            <button type="submit" class="btn btn-primary">
+              검색하기
+            </button>
+          </form>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+            <form class="user" action="/overview/specificComplainerSearch" method="GET">
+              <span>없는 날짜로 조회 하면 에러납니다. 예 2022-11-31</span><br/>
+              <% if(locals.pageType == "specific") { %>
+                <span>접수한 불편 총 갯수 <%= locals.cnt %></span>
+              <% }%>
+              <select name="age">
+                <option value=-1 selected>선택안함</option>  
+                <option value=10>10대</option>
+                <option value=20>20대</option>
+                <option value=30>30대</option>
+                <option value=40>40대 이상</option>
+              </select>
+              <select name="sex">
+                  <option value=-1 selected>선택안함</option>
+                  <option value="0">여성</option>
+                  <option value="1">남성</option>
+              </select>
+              <select name="job">
+                  <option value=-1 selected>선택안함</option>
+                  <option value="직장인">직장인</option>
+                  <option value="사업가">사업가</option>
+                  <option value="학생">학생</option>
+                  <option value="주부">주부</option>
+                  <option value="무직">무직</option>
+                  <option value="기타">기타</option>
+              </select>
+              <input type="text" id="startDate" name="startDate" placeholder="시작날짜(예: 2022-01-01)">~
+              <input type="text" id="endDate" name="endDate" placeholder="종료날짜(예: 2022-12-31)">
+
+              <button type="submit" class="btn btn-primary">
+                  검색하기
+              </button>
+            </form>
+            <table class="table table-bordered" id="dataTable"  style="width: auto; height: auto; table-layout: fixed; word-break: break-all;">
+              
+              <thead>
+                <tr>
+                  <th>번호</th>
+                  <th>카카오ID</th>
+                  <th>불편사항</th>
+                  <th>연령 / 성별 / 직업</th>
+                  <th>적립포인트</th>
+                  <th>불편접수시간</th> 
+                  <th>변경포인트입력</th>  
+                  <th>포인트변경하기</th>   
+                </tr>
+              </thead>              
+              <tbody>
+                <% for (let index in complainResult) { %>
+                  <form class="user" method="POST" action="/function/changePoint">
+                    <tr>
+                        <td><input type="text" name="no" value="<%= complainResult[index].no %>" hidden><%= complainResult[index].no %></td>
+                        <td><input type="text" name="kakaoId" value="<%= complainResult[index].kakao_id %>" hidden><%= complainResult[index].kakao_id %></td>
+                        <td><%= complainResult[index].complain_context %></td>
+                        <td><%= complainResult[index].age %> / <%= complainResult[index].sex %> / <%= complainResult[index].job%></td>
+                        <td><input type="text" name="beforePoint" value="<%= complainResult[index].send_point %>" hidden><%= complainResult[index].send_point %></td>
+                        <td><%= moment(complainResult[index].complain_date).format('YYYY.MM.DD HH:mm:ss') %></td>
+                        <td>
+                          <input type="tel" name="pointVal" placeholder="변경하려는 포인트 입력">
+                        </td>
+                        <td>
+                          <button type="submit" class="btn btn-primary">
+                            포인트 변경하기
+                          </button>
+                        </td>
+                    </tr>
+                  </form>
+                  <% } %> 
+                </tbody>
+            </table>
+          </form>
+            <%
+              let paging = locals.paging
+              let curSet = paging.curSet
+              let endPage = paging.endPage
+              let startPage = paging.startPage
+              let totalSet = paging.totalSet
+              let totalPage = paging.totalPage
+              let page_list_size = paging.page_list_size
+              let page_size = paging.page_size
+              let curPage = paging.curPage
+              let pageType = locals.pageType
+            %>
+              <ul class="pagination">
+                <li>
+                    <% if (curPage <= 1) { %>
+                        <a class="page-link" href="#">
+                    <% } else { %>
+                      <% if(pageType == 'normal') { %> 
+                        <a href="/overview/complain?page=<%= (curPage -1 ) %>">
+                      <% } else if(pageType == 'keywords') {
+                        let keywords = locals.keywords;
+                      %>
+                      <a href="/overview/contextSearch?page=<%= (curPage -1 ) %>&keywords=<%=keywords%>">
+                      <% } else if(pageType == 'specific') {
+                      let age = locals.age;
+                      let sex = locals.sex;
+                      let job = locals.job;
+                      let startDate = locals.startDate;
+                      let endDate = locals.endDate;
+                      %>
+                      <a href="/overview/specificComplainerSearch?page=<%= (curPage -1 ) %>&age=<%=age%>&sex=<%=sex%>&job=<%=job%>&startDate=<%=startDate%>&endDate=<%=endDate%>">
+                      <% } else { 
+                          let userId = locals.userId;
+                        %>
+                        <a href="/overview/complainerSearch?page=<%= (curPage -1 ) %>&userId=<%=userId%>">
+                      <% } %>
+                    <% } %>
+                        Prev
+                    </a>
+                </li>
+                <% for (let i = startPage; i <= endPage; i++) { 
+                    if (i > totalPage) {
+                        break;
+                    } 
+                %>
+                    <% if (i == curPage) { %>
+                        <li class="active" >
+                    <% }  else {%>
+                        <li>
+                    <% } %>
+                    <% if(pageType == 'normal') { %> 
+                      <a href="/overview/complain?page=<%= i %>"><%= i %></a>                      
+                      <% } else if(pageType == 'keywords') {
+                        let keywords = locals.keywords;
+                        %>
+                        <a href="/overview/contextSearch?page=<%= i %>&keywords=<%=keywords%>"><%= i %></a>
+                      <% } else if(pageType == 'specific') {
+                        let age = locals.age;
+                        let sex = locals.sex;
+                        let job = locals.job;
+                        let startDate = locals.startDate;
+                        let endDate = locals.endDate;
+                      %>
+                      <a href="/overview/specificComplainerSearch?page=<%= i %>&age=<%=age%>&sex=<%=sex%>&job=<%=job%>&startDate=<%=startDate%>&endDate=<%=endDate%>"> <%= i %></a>
+                      <% } else {  
+                        let userId = locals.userId;
+                        %>
+                        <a href="/overview/complainerSearch?page=<%= i %>&userId=<%=userId%>"><%= i %></a>
+                      <% } %>
+                        </li>
+                <% } %>
+                <li>
+                    <% if (Number(curPage) + 1 <= totalPage) { %>
+                      <% if(pageType == 'normal') { %> 
+                        <a href="/overview/complain?page=<%= (Number(curPage) + 1 ) %>">Next</a>
+                      <% } else if(pageType == 'keywords') {
+                        let keywords = locals.keywords;
+                      %>
+                      <a href="/overview/contextSearch?page=<%= (Number(curPage) + 1 ) %>&keywords=<%=keywords%>">Next</a>
+                      <% } else if(pageType == 'specific') {
+                        let age = locals.age;
+                        let sex = locals.sex;
+                        let job = locals.job;
+                        let startDate = locals.startDate;
+                        let endDate = locals.endDate;
+                      %>
+                      <a href="/overview/specificComplainerSearch?page=<%= (Number(curPage) + 1 ) %>&age=<%=age%>&sex=<%=sex%>&job=<%=job%>&startDate=<%=startDate%>&endDate=<%=endDate%>"> Next</a>
+                        <% } else {   
+                        let userId = locals.userId;
+                        %>
+                        <a href="/overview/complainerSearch?page=<%= (Number(curPage) + 1 ) %>&userId=<%=userId%>">Next</a>
+                      <% } %>
+                    <% } else { %>
+                        <a class="page-link" href="#">Next</a>
+                    <% } %>
+                </li>
+              </ul>
+          </div>
+        </div>
+    </div>
+  </div>
+  </div>
+    <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="/resource/vendor/jquery/jquery.min.js"></script>
+  <script src="/resource/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="/resource/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="/resource/js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="/vendor/chart.js/Chart.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="/resource/js/demo/chart-area-demo.js"></script>
+  <script src="/resource/js/demo/chart-pie-demo.js"></script>
+  <% include footer %>
+
+
+

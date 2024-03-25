@@ -1,0 +1,12 @@
+[14:08:33.660] INFO index here
+[14:08:57.881] INFO App instance name : web
+[14:08:57.883] INFO app name : web
+[14:08:57.884] INFO ENV : local
+[14:08:57.884] INFO process env : undefined, local
+[14:08:57.884] INFO db info :undefined
+[14:08:57.886] INFO [Web] <local> Web server is running on port 8080
+[14:08:57.886] INFO [Web] Starts at...2024-01-25T14:08:57+09:00
+[14:08:59.565] INFO index here
+[14:10:05.640] INFO ip check
+[14:10:05.643] INFO ip: 124.53.181.155,121.133.22.1,39.7.230.144,175.113.222.237,121.134.203.253,127.0.0.1,112.148.58.7,59.13.41.118,208.59.113.218,119.196.236.36,122.202.248.232,210.222.5.249,23.20.108.250,219.254.222.213
+[14:10:05.644] INFO ip-req: 127.0.0.1

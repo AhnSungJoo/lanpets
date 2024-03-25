@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <!-- Custom fonts for this template-->
+    <link href="/resource/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="/resource/css/sb-admin-2.min.css" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="icon" href="/resource/img/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/resource/img/favicon.ico" type="image/x-icon"/>
+    <title>HobbyLAB</title>
+
+  </head>
+
+  <body id="page-top">
+
+      <!-- Page Wrapper -->
+      <div id="wrapper">
+    
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    
+          <!-- Sidebar - Brand -->
+          <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+              </div>
+            <div class="sidebar-brand-text mx-3"> 취미LAB<br/>어드민 페이지 </div>
+          </a>
+    
+          <!-- Divider -->
+          <hr class="sidebar-divider my-0">
+    
+          <!-- Nav Item - Dashboard -->
+          <li class="nav-item <%if (locals.forum === 'home') { %> active <% }%>">
+            <a class="nav-link" href="/">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>Dashboard</span></a>
+          </li>
+    
+          <!-- Divider -->
+          <hr class="sidebar-divider">
+    
+          <!-- Heading -->
+          <div class="sidebar-heading">
+            Interface
+          </div>
+    
+          <!-- Nav Item - Pages Collapse Menu -->
+          <li class="nav-item <%if (locals.forum === 'overview') { %> active <% }%>">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+              <i class="fas fa-fw fa-cog"></i>
+              <span>Overview</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">All Overview List</h6>
+                <a class="collapse-item" href="/overview/complain"> 불편사항 확인하기 </a>
+                <a class="collapse-item" href="/overview/complainer"> 유저정보 확인하기 </a>
+                <a class="collapse-item" href="/overview/outcome"> 출금신청한 사용자 확인하기</a>
+                <a class="collapse-item" href="/overview/kookminAlarm"> 얼마빌렸지 신청정보 확인</a>
+              </div>
+            </div>
+          </li>
+    
+          <!-- Nav Item - Utilities Collapse Menu -->
+          <li class="nav-item <%if (locals.forum === 'test') { %> active <% }%>">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-fw fa-wrench"></i>
+                <span> Function </span>
+              </a>
+              <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                  <h6 class="collapse-header">관리자 기능 </h6>
+                  <a class="collapse-item" href="/function/sendmsg">출금신청 후 포인트 차감</a>
+                  <a class="collapse-item" href="/function/sendKakaomsg">카카오톡 메시지 보내기(Event API)</a>
+                  <a class="collapse-item" href="/function/test">Post Test</a>
+                </div>
+              </div>
+            </li>
+          <!-- Divider -->
+          <!-- Nav Item - Utilities Collapse Menu -->
+          <li class="nav-item <%if (locals.forum === 'manual') { %> active <% }%>">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseManual" aria-expanded="true" aria-controls="collapseUtilities">
+              <i class="fas fa-fw fa-wrench"></i>
+              <span> Description </span>
+            </a>
+            <div id="collapseManual" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header"> 관리자페이지 사용설명서 </h6>
+                <a class="collapse-item" href="/descripiton/incomeManual">출금신청 후 포인트 차감 설명서</a>
+              </div>
+            </div>
+          </li>
+        <!-- Divider -->
+          <hr class="sidebar-divider d-none d-md-block">
+          
+    
+          <!-- Sidebar Toggler (Sidebar) -->
+          <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+          </div>
+    
+        </ul>
+        <!-- End of Sidebar -->
